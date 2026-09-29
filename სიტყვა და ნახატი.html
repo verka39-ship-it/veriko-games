@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+<title>დააკავშირე  სიტყვა  ნახატს</title>
+
+<style>
+body{
+    text-align:center;
+    background:#f2f2f2;
+    font-family:sans-serif;
+}
+
+#game{
+    position:relative;
+    width:760px;
+    margin:auto;
+}
+
+#background{
+    width:760px;
+    display:block;
+}
+
+.drop{
+    position:absolute;
+    width:100px;
+    height:75px;
+    border-radius:18px;
+}
+
+.word{
+    display:inline-block;
+    padding:12px 22px;
+    margin:10px;
+    font-size:32px;
+    border-radius:18px;
+    border:2px solid #999;
+    background:white;
+    cursor:grab;
+    user-select:none;
+}
+
+.correct{
+    background:#90ee90;
+    border:2px solid green;
+}
+
+#result{
+    margin-top:25px;
+}
+
+.stars{
+    font-size:50px;
+    animation:blink 1s infinite;
+}
+
+@keyframes blink{
+    50%{opacity:0.4;}
+}
+</style>
+</head>
+
+<body>
+
+<h1>დააკავშირე სიტყვა და ნახატი</h1>
+
+<div id="game">
+
+<img id="background" src="ნახატიანი ბარათები.PNG">
+
+<!-- ცა -->
+<div class="drop" data-word="ცა"
+style="top:15px; left:500px;"></div>
+
+<!-- მზე -->
+<div class="drop" data-word="მზე"
+style="top:180px; left:390px;"></div>
+
+<!-- მთა -->
+<div class="drop" data-word="მთა"
+style="top:150px; left:610px;"></div>
+<!-- ხე -->
+<div class="drop" data-word="ხე"
+style="top:355px; left:10px;"></div>
+
+<!-- ტბა -->
+<div class="drop" data-word="ტბა"
+style="top:335px; left:400px;"></div>
+
+<!-- ია -->
+<div class="drop" data-word="ია"
+style="top:560px; left:230px;"></div>
+
+<!-- კუ -->
+<div class="drop" data-word="კუ"
+style="top:500px; left:520px;"></div>
+
+</div>
+
+<br>
+
+<div id="words">
+
+<div class="word" draggable="true">კუ</div>
+<div class="word" draggable="true">ტბა</div>
+<div class="word" draggable="true">ხე</div>
+<div class="word" draggable="true">მზე</div>
+<div class="word" draggable="true">ია</div>
+<div class="word" draggable="true">მთა</div>
+<div class="word" draggable="true">ცა</div>
+
+</div>
+
+<div id="result"></div>
+
+<script>
+
+let draggedWord = null;
+let correctCount = 0;
+
+document.querySelectorAll(".word").forEach(word => {
+
+    word.addEventListener("dragstart", () => {
+        draggedWord = word;
+    });
+
+});
+
+document.querySelectorAll(".drop").forEach(drop => {
+
+    drop.addEventListener("dragover", e => {
+        e.preventDefault();
+    });
+
+    drop.addEventListener("drop", function(e){
+
+        e.preventDefault();
+
+        if(
+            draggedWord &&
+            draggedWord.textContent.trim() === this.dataset.word &&
+            !this.hasChildNodes()
+        ){
+
+            this.appendChild(draggedWord);
+
+            draggedWord.classList.add("correct");
+
+            correctCount++;
+
+            if(correctCount === 7){
+
+                document.getElementById("result").innerHTML = `
+                <div style="
+                    background:white;
+                    padding:20px;
+                    border-radius:20px;
+                    font-size:32px;
+                    color:#ff9900;
+                    margin-top:20px;
+                ">
+                    🎉 ყოჩაღ!<br>
+                    ყველა სიტყვა სწორად ამოიცანი!
+                    <div class="stars">
+                    ⭐⭐⭐⭐⭐
+                    </div>
+                </div>
+                `;
+            }
+        }
+    });
+
+});
+
+</script>
+
+</body>
+</html>
