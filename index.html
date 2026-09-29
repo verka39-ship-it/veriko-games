@@ -39,6 +39,7 @@ body{
     background:white;
     cursor:grab;
     user-select:none;
+    touch-action:none;
 }
 
 .correct{
@@ -113,9 +114,7 @@ style="top:500px; left:520px;"></div>
 </div>
 
 <div id="result"></div>
-
 <script>
-
 let draggedWord = null;
 let correctCount = 0;
 
@@ -125,13 +124,11 @@ document.querySelectorAll(".word").forEach(word => {
         draggedWord = word;
     });
 
-});
-
-document.querySelectorAll(".drop").forEach(drop => {
-
-    drop.addEventListener("dragover", e => {
-        e.preventDefault();
+    word.addEventListener("touchstart", () => {
+        draggedWord = word;
     });
+
+});
 
     drop.addEventListener("drop", function(e){
 
