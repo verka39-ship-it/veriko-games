@@ -2,7 +2,7 @@
 <html lang="ka">
 <head>
 <meta charset="UTF-8">
-<title>დააკავშირე  სიტყვა  ნახატს</title>
+<title>დააკავშირე სიტყვა და ნახატი</title>
 
 <style>
 body{
@@ -81,6 +81,7 @@ style="top:180px; left:390px;"></div>
 <!-- მთა -->
 <div class="drop" data-word="მთა"
 style="top:150px; left:610px;"></div>
+
 <!-- ხე -->
 <div class="drop" data-word="ხე"
 style="top:355px; left:10px;"></div>
@@ -114,7 +115,9 @@ style="top:500px; left:520px;"></div>
 </div>
 
 <div id="result"></div>
+
 <script>
+
 let draggedWord = null;
 let correctCount = 0;
 
@@ -124,11 +127,13 @@ document.querySelectorAll(".word").forEach(word => {
         draggedWord = word;
     });
 
-    word.addEventListener("touchstart", () => {
-        draggedWord = word;
-    });
-
 });
+
+document.querySelectorAll(".drop").forEach(drop => {
+
+    drop.addEventListener("dragover", e => {
+        e.preventDefault();
+    });
 
     drop.addEventListener("drop", function(e){
 
